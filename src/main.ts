@@ -1,6 +1,6 @@
 import './assets/reset.css'
 
 import { createApp } from 'vue'
-import App from './App.vue'
+import Customize from './pages/Customize.vue'
 
-createApp(App).mount('#app')
+createApp(Customize).mount('#app')
