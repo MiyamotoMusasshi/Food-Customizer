@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      js-cookie:
+        specifier: ^3.0.8
+        version: 3.0.8
       vue:
         specifier: ^3.5.40
         version: 3.5.41(typescript@6.0.3)
