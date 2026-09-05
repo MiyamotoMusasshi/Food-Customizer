@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import '../assets/styles/Customize.css'
 import Pizza from '@/components/Customize/Pizza.vue'
 import IngredientsMenu from '@/components/Customize/IngredientsMenu.vue'

@@ -1,5 +1,9 @@
-<script setup>
-const props = defineProps(['isClicked'])
+<script setup lang="ts">
+interface Props {
+  isClicked: boolean
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
