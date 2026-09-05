@@ -13,6 +13,8 @@ import OnionImg from '../../assets/img/Onion.svg'
 import PineAppleImg from '../../assets/img/Pineapple.svg'
 import RedChillImg from '../../assets/img/RedChili.svg'
 import TomatoImg from '../../assets/img/Tomato.svg'
+import Cookies from 'js-cookie'
+import { ref } from 'vue'
 
 interface IngredientResource {
   ingredient_name: string
@@ -39,6 +41,11 @@ const availableIngredients: IngredientResource[] = [
   { ingredient_name: 'Красный перец', img_src: RedChillImg },
   { ingredient_name: 'Помидор', img_src: TomatoImg },
 ]
+
+const price = ref(Cookies.get('price') ?? '0')
+function updatePrice() {
+  price.value = Cookies.get('price') ?? '0'
+}
 </script>
 
 <template>
@@ -50,10 +57,13 @@ const availableIngredients: IngredientResource[] = [
           :key="ingredient.ingredient_name"
           :imgSrc="ingredient.img_src"
           :name="ingredient.ingredient_name"
+          @changed="updatePrice()"
         />
       </div>
       <div class="menu_other">
-        <p class="ingredient_name price">Итоговая цена: 0р</p>
+        <p class="ingredient_name price">
+          {{ 'Итоговая цена: ' + price + 'р' }}
+        </p>
         <button class="pay ingredient_name">Перейти к оплате -></button>
       </div>
     </div>
