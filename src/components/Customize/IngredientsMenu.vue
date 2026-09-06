@@ -24,7 +24,25 @@ interface Props {
   isClicked: boolean
 }
 
+interface IngredientInfo {
+  x: number
+  y: number
+  key: string
+  src: string
+}
+
 const props = defineProps<Props>()
+
+const ingredientsForRender = ref<IngredientInfo[]>([])
+function updateIngredientsForRender(ingredientInfo: IngredientInfo | string) {
+  if (typeof ingredientInfo === 'string') {
+    const index = ingredientsForRender.value.findIndex((i) => i.key == ingredientInfo)
+
+    ingredientsForRender.value.splice(index, 1)
+  } else {
+    ingredientsForRender.value.push(ingredientInfo)
+  }
+}
 
 const availableIngredients: IngredientResource[] = [
   { ingredient_name: 'Пеперони', img_src: SausageImg },
@@ -46,6 +64,8 @@ const price = ref(Cookies.get('price') ?? '0')
 function updatePrice() {
   price.value = Cookies.get('price') ?? '0'
 }
+
+const emit = defineEmits<{ changed: [IngredientInfo[]] }>()
 </script>
 
 <template>
@@ -57,7 +77,13 @@ function updatePrice() {
           :key="ingredient.ingredient_name"
           :imgSrc="ingredient.img_src"
           :name="ingredient.ingredient_name"
-          @changed="updatePrice()"
+          @changed="
+            (ingredientInfo: IngredientInfo | string) => {
+              updateIngredientsForRender(ingredientInfo)
+              updatePrice()
+              emit('changed', ingredientsForRender)
+            }
+          "
         />
       </div>
       <div class="menu_other">

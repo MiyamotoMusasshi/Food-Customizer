@@ -9,11 +9,31 @@ const pizzaIsClicked = ref(false)
 function handlePizzaClick() {
   pizzaIsClicked.value = !pizzaIsClicked.value
 }
+
+interface IngredientInfo {
+  x: number
+  y: number
+  key: string
+  src: string
+}
+
+const ingredientsForRender = ref<IngredientInfo[]>([])
 </script>
 
 <template>
   <main>
-    <Pizza @click="handlePizzaClick" :isClicked="pizzaIsClicked" />
-    <IngredientsMenu :isClicked="pizzaIsClicked" />
+    <Pizza
+      @click="handlePizzaClick"
+      :isClicked="pizzaIsClicked"
+      :ingredients="ingredientsForRender"
+    />
+    <IngredientsMenu
+      :isClicked="pizzaIsClicked"
+      @changed="
+        (newArr: IngredientInfo[]) => {
+          ingredientsForRender = newArr
+        }
+      "
+    />
   </main>
 </template>

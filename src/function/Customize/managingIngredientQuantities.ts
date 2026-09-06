@@ -16,6 +16,5 @@ export default function managingIngredientQuantities(ingredient:string,isAdd:boo
     }else{
         Cookies.set(ingredient,isAdd ? String(Number(ingredientCount)+1) : String(Number(ingredientCount)-1))        
     }
-
     Cookies.set('price',isAdd ? String(Number(price)+20) : String(Number(price)-20))
 }
